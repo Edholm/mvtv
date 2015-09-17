@@ -20,7 +20,7 @@ class PathSuggester(object):
         if guess['type'] == 'episode':
             dest = self._tv_path / titlecase(guess['series'])
             if append_season and 'season' in guess:
-                dest = dest / ('S' + str(guess['season']))
+                dest = dest / ('S{0:02d}'.format(guess['season']))
 
             # Is it a single episode or a bundle?
             if 'episodeNumber' in guess:
