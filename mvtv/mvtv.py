@@ -28,10 +28,10 @@ def main():
             dest.mkdir(parents=True)
         # Note: this does not support moving between hard drives.
         if not args.dry_run:
-            rt.close(torrent)
-            rt.set_base_path(dest_s)
+            rt.close(torrent[1])
+            rt.set_base_path(torrent[1], dest_s)
             src.rename(dest)
-            rt.start(torrent)
+            rt.start(torrent[1])
 
 
 def cmd_args():
