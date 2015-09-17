@@ -9,7 +9,7 @@ from colorama import Fore
 def main():
     args, sources = cmd_args()
 
-    ps = PathSuggester('/home/eda/test')
+    ps = PathSuggester()
     for src in sources:
         src = Path(src)
         dest = ps.suggest(src)
