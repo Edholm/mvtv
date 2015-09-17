@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 
+import sys
 from suggestion import PathSuggester
 from rtorrent import RTorrent
 from pathlib import Path
@@ -13,6 +14,10 @@ def main():
     for src in args.sources:
         src = Path(src)
         dest = ps.suggest(src)
+        if dest is None:
+            print("Unknown source '" + str(src) + "'", file=sys.stderr)
+            continue
+
         src_s = str(src.resolve())
         dest_s = str(dest)
 
@@ -28,10 +33,12 @@ def main():
             dest.mkdir(parents=True)
         # Note: this does not support moving between hard drives.
         if not args.dry_run:
-            rt.close(torrent[1])
-            rt.set_base_path(torrent[1], dest_s)
+            if torrent:
+                rt.close(torrent[1])
+                rt.set_base_path(torrent[1], dest_s)
             src.rename(dest)
-            rt.start(torrent[1])
+            if torrent:
+                rt.start(torrent[1])
 
 
 def cmd_args():
