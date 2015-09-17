@@ -19,12 +19,12 @@ class RTorrent(object):
     def close(self, torrent):
         if not self.verify(torrent):
             return
-        self.proxy.d.stop(torrent)
+        self.proxy.d.close(torrent)
 
     def start(self, torrent):
         if not self.verify(torrent):
             return
-        self.proxy.d.start(torrent)
+        self.proxy.d.resume(torrent)
 
     def set_base_path(self, torrent, new_path):
         if not self.verify(torrent):
