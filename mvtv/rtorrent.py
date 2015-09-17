@@ -19,7 +19,7 @@ class RTorrent(object):
     def close(self, torrent):
         if not self.verify(torrent):
             return
-        self.proxy.d.close(torrent)
+        self.proxy.d.stop(torrent)
 
     def start(self, torrent):
         if not self.verify(torrent):
