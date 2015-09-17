@@ -6,6 +6,7 @@ Also notify rtorrent about the new path.
 
 
 ## Requirements
+* titlecase
 * guessit
 * colorama
 * python 3.x

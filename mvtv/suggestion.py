@@ -1,5 +1,6 @@
 from pathlib import PurePath, Path
 from guessit import guess_file_info
+from titlecase import titlecase
 
 
 class PathSuggester(object):
@@ -17,7 +18,7 @@ class PathSuggester(object):
 
         guess = guess_file_info(src.name)
         if guess['type'] == 'episode':
-            dest = self._tv_path / guess['series']
+            dest = self._tv_path / titlecase(guess['series'])
             if append_season and 'season' in guess:
                 dest = dest / ('S' + str(guess['season']))
 
