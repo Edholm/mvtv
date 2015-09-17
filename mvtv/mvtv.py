@@ -19,7 +19,7 @@ def main():
         rt = RTorrent()
         torrent = rt.search_by_path(src_s)
 
-        t_mark = Fore.BLUE + '[T] ' + Fore.RESET if not torrent else ''
+        t_mark = Fore.BLUE + '[T] ' + Fore.RESET if torrent else ''
         print(t_mark + Fore.YELLOW + src_s + Fore.MAGENTA + " -> " +
               Fore.GREEN + dest_s + Fore.RESET)
 
