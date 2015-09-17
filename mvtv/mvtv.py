@@ -7,10 +7,10 @@ from colorama import Fore
 
 
 def main():
-    args, sources = cmd_args()
+    args = cmd_args()
 
     ps = PathSuggester()
-    for src in sources:
+    for src in args.sources:
         src = Path(src)
         dest = ps.suggest(src)
         src_s = str(src.resolve())
@@ -24,14 +24,26 @@ def main():
               Fore.GREEN + dest_s + Fore.RESET)
 
         # Do the actual moving
-        if not dest.is_dir():
+        if not args.dry_run and not dest.is_dir():
             dest.mkdir(parents=True)
-        src.rename(dest)
+        # Note: this does not support moving between hard drives.
+        if not args.dry_run:
+            rt.close(torrent)
+            rt.set_base_path(dest_s)
+            src.rename(dest)
+            rt.start(torrent)
 
 
 def cmd_args():
-    from optparse import OptionParser
-    parser = OptionParser(description="Move TV-shows to suggested destination")
+    from argparse import ArgumentParser
+    parser = ArgumentParser(description="Move TV-shows to suggested destination")
+    # parser.add_argument('-d', '--disable-rtorrent', action='store_false', dest='use_rtorrent',
+    #                    help='Disable rtorrent interface.')
+    parser.add_argument('-t', '--dry-run', action='store_true', dest='dry_run',
+                        help='Do not actually move the folders...')
+    parser.add_argument('sources', metavar='SOURCE', type=str, nargs='+',
+                                           help='Sources to move to a suggested destination')
+
     return parser.parse_args()
 
 if __name__ == '__main__':
