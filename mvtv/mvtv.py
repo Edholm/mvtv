@@ -26,6 +26,8 @@ def main():
 
         rt = RTorrent()
         torrent = rt.search_by_path(src_s)
+        if not torrent:
+            torrent = rt.search_by_name(src.name)
 
         t_mark = Fore.BLUE + '[T] ' + Fore.RESET if torrent else ''
         print(t_mark + Fore.YELLOW + src_s + Fore.MAGENTA + " -> " +
