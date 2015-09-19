@@ -41,7 +41,7 @@ def main():
         if not args.dry_run:
             if torrent:
                 rt.close(torrent[1])
-                base = dest_s if src.is_file() else str(dest.parent)
+                base = dest_s if src.is_dir() else str(dest.parent)
                 rt.set_base_path(torrent[1], base)
             src.rename(dest)
             if torrent:
