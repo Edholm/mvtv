@@ -13,7 +13,7 @@ def main():
     ps = PathSuggester()
     for src in args.sources:
         src = Path(src)
-        dest = Path(args.dest) if args.dest else ps.suggest(src)
+        dest = Path(args.dest) / src.name if args.dest else ps.suggest(src)
         if dest is None:
             print("Unknown source '" + str(src) + "'", file=sys.stderr)
             continue
@@ -58,7 +58,7 @@ def cmd_args():
     parser.add_argument('sources', metavar='SOURCE', type=str, nargs='+',
                                            help='Sources to move to a suggested destination')
     parser.add_argument('-d', '--dest', dest='dest',
-                        help='Ignore suggestion, move here. Note that name won\'t be appended')
+                        help='Ignore suggestion, move here.')
 
     return parser.parse_args()
 
