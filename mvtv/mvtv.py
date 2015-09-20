@@ -13,6 +13,7 @@ def main():
     ps = PathSuggester()
     for src in args.sources:
         src = Path(src)
+        # TODO: If arg.dest and not dest exists, dont append name, else append, ala rename
         dest = Path(args.dest) / src.name if args.dest else ps.suggest(src)
         if dest is None:
             print("Unknown source '" + str(src) + "'", file=sys.stderr)
