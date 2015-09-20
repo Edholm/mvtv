@@ -1,8 +1,8 @@
 #!/usr/bin/python3
 
 import sys
-from suggestion import PathSuggester
-from rtorrent import RTorrent
+from mvtv.suggestion import PathSuggester
+from mvtv.rtorrent import RTorrent
 from pathlib import Path
 from colorama import Fore
 

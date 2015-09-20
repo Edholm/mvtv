@@ -1,7 +1,7 @@
 from pathlib import PurePath, Path
 from guessit import guess_file_info
 from titlecase import titlecase
-from rtorrent import RTorrent
+from mvtv.rtorrent import RTorrent
 
 
 class PathSuggester(object):
