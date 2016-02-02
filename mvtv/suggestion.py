@@ -1,7 +1,7 @@
 from pathlib import PurePath, Path
-from guessit import guess_file_info
+from guessit import guessit
 from titlecase import titlecase
-from mvtv.rtorrent import RTorrent
+from rtorrent import RTorrent
 
 
 class PathSuggester(object):
@@ -19,22 +19,22 @@ class PathSuggester(object):
         ''' Takes a source path and suggest a destination path'''
         src = PurePath(src)
         dest = None
-        guess = guess_file_info(src.name)
+        guess = guessit(src.name)
 
         # Try to find the torrent in rtorrent and use that name instead.
         if not self._valid_guess(guess):
             rt = RTorrent()
             print("via rtorrent")
             torrent = rt.search_by_path(str(src))
-            guess = guess_file_info(torrent[0]) if torrent else None  # 0 == name
+            guess = guessit(torrent[0]) if torrent else None  # 0 == name
 
         if self._valid_guess(guess):
-            dest = self._tv_path / titlecase(guess['series'])
+            dest = self._tv_path / titlecase(guess['title'])
             if append_season and 'season' in guess:
                 dest = dest / ('S{0:02d}'.format(guess['season']))
 
             # Is it a single episode or a bundle?
-            if 'episodeNumber' in guess:
+            if 'episode' in guess:
                 dest = dest / src.name
 
         return dest
